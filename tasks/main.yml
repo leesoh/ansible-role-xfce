@@ -7,11 +7,11 @@
     update_cache: yes
     state: latest
 
-- name: Set desktop theme to Arc Darker
-  command: xfconf-query -c xsettings -p /Net/ThemeName -s "arc-darker"
+- name: Set desktop theme to Arc Dark
+  command: xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Dark"
 
 - name: Set window manager theme to Arc Darker
-  command: xfconf-query -c xfwm4 -p /general/theme -s "arc-darker"
+  command: xfconf-query -c xfwm4 -p /general/theme -s "Arc-Darker"
 
 - name: Hide desktop icons
   command: "xfconf-query -c xfce4-desktop -np '/desktop-icons/style' -t 'int' -s '0'"
