@@ -67,3 +67,46 @@
   template:
     src: ../templates/whiskermenu-1.rc.j2
     dest: "{{ ansible_env.HOME }}/.config/xfce4/panel/whiskermenu-1.rc"
+
+- name: Create Firefox panel directory
+  file:
+    state: directory
+    path: "{{ ansible_env.HOME }}/.config/xfce4/panel/launcher-5/"
+
+- name: Create Firefox launcher
+  copy:
+    src: ../files/firefox.desktop
+    dest: "{{ ansible_env.HOME }}/.config/xfce4/panel/launcher-5/firefox.desktop"
+    mode: 0664
+    force: yes
+
+- name: Create Chromium panel directory
+  file:
+    state: directory
+    path: "{{ ansible_env.HOME }}/.config/xfce4/panel/launcher-9/"
+
+- name: Create Chromium launcher
+  copy:
+    src: ../files/chromium.desktop
+    dest: "{{ ansible_env.HOME }}/.config/xfce4/panel/launcher-9/chromium.desktop"
+    mode: 0664
+    force: yes
+
+- name: Create VS Code panel directory
+  file:
+    state: directory
+    path: "{{ ansible_env.HOME }}/.config/xfce4/panel/launcher-10/"
+
+- name: Create VS Code launcher
+  copy:
+    src: ../files/code.desktop
+    dest: "{{ ansible_env.HOME }}/.config/xfce4/panel/launcher-10/code.desktop"
+    mode: 0664
+    force: yes
+
+- name: Update panel config
+  copy:
+    src: ../files/xfce4-panel.xml
+    dest: "{{ ansible_env.HOME }}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml "
+    mode: 0644
+    force: yes
