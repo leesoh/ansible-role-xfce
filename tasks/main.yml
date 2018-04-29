@@ -31,10 +31,39 @@
     recurse: yes
     state: directory
 
-- name: Download suitably dystopian wallpaper
-  get_url:
-    url: http://www.simonstalenhag.se/bilderbig/by_gathering3_2880.jpg
-    dest: "{{ ansible_env.HOME }}/.local/share/xfce4/backdrops/by_gathering.jpg"
+- name: Implement suitably dystopian wallpaper
+  copy:
+    mode: 0600
+    src: ../files/by_burned.jpg
+    dest: "{{ ansible_env.HOME }}/.local/share/xfce4/backdrops/by_burned.jpg"
 
 - name: Set wallpaper
-  command: "xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor0/workspace0/last-image --set {{ ansible_env.HOME }}/.local/share/xfce4/backdrops/by_gathering.jpg"
+  command: "xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor0/workspace0/last-image --set {{ ansible_env.HOME }}/.local/share/xfce4/backdrops/by_burned.jpg"
+
+# - name: Kill xfce4-panel
+#   command: xfce4-panel --quit
+
+# - name: Kill xfconfd
+#   command: pkill xfconfd
+
+- name: Remove all launchers
+  file:
+    state: absent
+    path: "{{ ansible_env.HOME }}/.config/xfce4/panel"
+
+- name: Create panel directory
+  file:
+    state: directory
+    path: "{{ ansible_env.HOME }}/.config/xfce4/panel"
+
+- name: Beam up Melon Cat
+  copy:
+    src: ../files/melon_cat.png
+    dest: "{{ ansible_env.HOME }}/Pictures/melon_cat.png"
+    mode: 0600
+    force: yes
+
+- name: Customize Whisker Menu
+  template:
+    src: ../templates/whiskermenu-1.rc.j2
+    dest: "{{ ansible_env.HOME }}/.config/xfce4/panel/whiskermenu-1.rc"
