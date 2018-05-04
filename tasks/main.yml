@@ -62,8 +62,10 @@
     dest: "{{ ansible_env.HOME }}/Pictures/melon_cat.png"
     mode: 0600
     force: yes
+  register: meloncat
 
 - name: Customize Whisker Menu
+  when: meloncat.changed
   template:
     src: ../templates/whiskermenu-1.rc.j2
     dest: "{{ ansible_env.HOME }}/.config/xfce4/panel/whiskermenu-1.rc"
