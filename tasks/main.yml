@@ -13,6 +13,34 @@
 - name: Set window manager theme to Arc Darker
   command: xfconf-query -c xfwm4 -p /general/theme -s "Arc-Darker"
 
+- name: Set Greeter to Arc Dark
+  become: true
+  lineinfile:
+    path: /etc/lightdm/lightdm-gtk-greeter.conf
+    regexp: '^#theme-name'
+    line: theme-name=Arc-Dark
+
+- name: Set Greeter Icon Theme
+  become: true
+  lineinfile:
+    path: /etc/lightdm/lightdm-gtk-greeter.conf
+    regexp: '^#icon-theme-name='
+    line: icon-theme-name=elementary Xfce darker
+
+- name: Set Greeter Time
+  become: true
+  lineinfile:
+    path: /etc/lightdm/lightdm-gtk-greeter.conf
+    regexp: '^#clock-format='
+    line: clock-format=%F %H:%M
+
+- name: Install Hack font
+  become: true
+  when: ansible_os_family == "Debian"
+  apt:
+    name: fonts-hack-ttf
+    state: latest
+
 - name: Hide desktop icons
   command: "xfconf-query -c xfce4-desktop -np '/desktop-icons/style' -t 'int' -s '0'"
 
